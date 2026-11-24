@@ -1,3 +1,24 @@
+![Ovia Inc — fast-anything wordmark, from the upstream repository's own assets](docs/assets/wordmark.png)
+
+## Ovia Inc — fast-anything fork
+
+This repository is a fork of [EL4CTEO/fast-anything](https://github.com/EL4CTEO/fast-anything), held in the Ovia Inc collection for evaluation. Modifications by Ovia Inc: this header (Ovia section, story, and reference note), added November 2026 as part of the weekly email-digest fork pass. Upstream code and content are otherwise unchanged from the fork point, except where a later commit says so. All credit for the project belongs to the upstream authors and contributors; the licence is MIT, as recorded in the upstream repository.
+
+### What this is
+
+fast-anything is a performance tool built around a coding agent. Instead of rewriting a whole application in Rust, it profiles a Python, Node, Ruby or other supported app, ranks functions by time and portability, records real calls to the hot functions, and has the coding agent port only those functions to Rust as a one-function crate. The port is verified by replaying every recorded call, plus derived edge cases, against the original; nothing is enabled until every case matches, and the swap-in is a single marked block that can be removed byte for byte. The repository also ships an agent plugin marketplace that bundles a skill and an MCP server — the built-in MCP server exposes eight tools covering scanning, porting, verification, enabling, benchmarking, reporting and status, and the skill under `skills/fast-anything` teaches an agent the loop.
+
+### Story
+
+Performance work usually arrives as an all-or-nothing rewrite: months of work, long compiles, and a new codebase to trust. fast-anything takes the opposite position — most of the runtime sits in a few functions, so port only those, and make the agent prove the port behaves the same on real recorded calls before it is allowed in. That proof discipline is the part worth studying: recorded behaviour as the contract, edge cases derived and answered by the original, and a port that is right but slower per call not being enabled either. We forked EL4CTEO/fast-anything in November 2026 for the developer-tooling shelf, where it sits beside the collection's agent harnesses and skills work as the performance end of the same question — what an agent may change in a codebase, and what evidence it has to produce first.
+
+### What we evaluate
+
+- The profiling and ranking step: whether time × portability picks the functions an experienced engineer would pick.
+- The verification contract: recorded calls plus derived edge cases as the bar a port must clear, and how failures surface.
+- The MCP server and skill packaging as an agent surface — whether the eight-tool shape and the SKILL.md loop transfer to other tooling.
+- Reversibility in practice: the marked-block swap-in and the disable path on a real project layout.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/EL4CTEO/fast-anything/main/docs/assets/wordmark.png" alt="fast-anything" width="520">
 </p>
